@@ -53,7 +53,12 @@ export class CrearTablaUsuarios1720732360055 implements MigrationInterface {
         ],
         indices: [
           {
-            name: 'UQ_USERS_EMAIL',
+            name: 'UQ_USUARIOS_USERNAME',
+            columnNames: ['username'],
+            isUnique: true,
+          },
+          {
+            name: 'UQ_USUARIOS_EMAIL',
             columnNames: ['email'],
             isUnique: true,
           },

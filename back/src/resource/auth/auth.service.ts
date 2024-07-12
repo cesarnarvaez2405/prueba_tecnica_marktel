@@ -29,8 +29,8 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const { email, password } = loginDto;
-    const usuario = await this.usuarioService.buscarPorEmail(email);
+    const { username, password } = loginDto;
+    const usuario = await this.usuarioService.buscarPorUsername(username);
     if (!usuario) {
       throw new BadRequestException('El usuario no esta registrado');
     }
@@ -52,24 +52,8 @@ export class AuthService {
     };
   }
 
-  async buscarPerfil(perfil: Usuario) {
+  async buscarPerfil(perfil: Partial<Usuario>) {
     const { email } = perfil;
     return await this.usuarioService.buscarPorEmail(email);
-  }
-
-  findAll() {
-    return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
   }
 }

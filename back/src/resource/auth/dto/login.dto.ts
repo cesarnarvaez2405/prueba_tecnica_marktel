@@ -1,10 +1,9 @@
 import { Transform } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class LoginDto {
-  @IsEmail()
-  @IsNotEmpty({ message: 'El email debe ser obligatorio' })
-  email: string;
+  @IsNotEmpty({ message: 'El usarname debe ser obligatorio' })
+  username: string;
 
   @IsString()
   @Transform(({ value }) => value.trim())

@@ -39,6 +39,13 @@ export class UsuariosService {
     return usuarioCreado ? usuarioCreado : null;
   }
 
+  async buscarPorUsername(username: string) {
+    const usuarioCreado = await this.usuarioRepository.findOne({
+      where: { username },
+    });
+    return usuarioCreado ? usuarioCreado : null;
+  }
+
   async actualizar(id: number, updateUsuarioDto: UpdateUsuarioDto) {
     const usuarioCreado = await this.buscarPorId(id);
     this.usuarioRepository.merge(usuarioCreado, updateUsuarioDto);

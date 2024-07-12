@@ -15,8 +15,8 @@ export class Usuario extends entityBase {
   @Column()
   password: string;
 
-  @Column({ default: 'user' })
-  rol?: string;
+  @Column()
+  rol: string;
 
   @Column({ name: 'esta_activo', default: true })
   estaActivo?: boolean;

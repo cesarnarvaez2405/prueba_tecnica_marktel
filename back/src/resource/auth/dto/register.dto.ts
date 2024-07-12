@@ -25,7 +25,7 @@ export class RegisterDto implements ICrearUsuarioDto {
   readonly email: string;
 
   @IsString()
-  @MaxLength(7, { message: 'El password solo puede tener hasta 8 caracteres' })
+  @MaxLength(8, { message: 'El password solo puede tener hasta 8 caracteres' })
   @IsNotEmpty({ message: 'El password es obligatorio' })
   password: string;
 
@@ -34,8 +34,8 @@ export class RegisterDto implements ICrearUsuarioDto {
   readonly nombre: string;
 
   @IsString()
-  @IsOptional()
-  readonly rol?: string;
+  @IsNotEmpty({ message: 'El rol es obligatorio' })
+  readonly rol: string;
 
   @IsBoolean({ message: 'El campo esta_activo debe ser booleano' })
   @IsOptional()

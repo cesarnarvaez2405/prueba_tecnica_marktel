@@ -34,8 +34,8 @@ export class CreateUsuarioDto implements ICrearUsuarioDto {
   readonly nombre: string;
 
   @IsString()
-  @IsOptional()
-  readonly rol?: string;
+  @IsNotEmpty({ message: 'El rol es obligatorio' })
+  readonly rol: string;
 
   @IsBoolean({ message: 'El campo esta_activo debe ser booleano' })
   @IsOptional()

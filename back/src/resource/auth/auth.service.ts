@@ -1,11 +1,60 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { UsuariosService } from '../usuarios/usuarios.service';
+import { JwtService } from '@nestjs/jwt';
+import { RegisterDto } from './dto/register.dto';
+import * as bcrypt from 'bcryptjs';
+import { LoginDto } from './dto/login.dto';
+import { Usuario } from '../usuarios/entities/usuario.entity';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    private readonly usuarioService: UsuariosService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async registrar(registerDto: RegisterDto) {
+    const { email } = registerDto;
+    const tieneEmail = await this.usuarioService.buscarPorEmail(email);
+    if (tieneEmail) {
+      throw new BadRequestException('Este usuario ya existe');
+    }
+    registerDto.password = await bcrypt.hash(registerDto.password, 10);
+    return await this.usuarioService.crear(registerDto);
+  }
+
+  async login(loginDto: LoginDto) {
+    const { email, password } = loginDto;
+    const usuario = await this.usuarioService.buscarPorEmail(email);
+    if (!usuario) {
+      throw new BadRequestException('El usuario no esta registrado');
+    }
+    const passwordValido = await bcrypt.compare(password, usuario.password);
+    if (!passwordValido) {
+      throw new UnauthorizedException('El password es incorrecto');
+    }
+
+    const horaAutenticacion = new Date().toISOString();
+    const payload = {
+      email: usuario.email,
+      rol: usuario.rol,
+      time: horaAutenticacion,
+    };
+    const token = await this.jwtService.signAsync(payload);
+    return {
+      token,
+      payload,
+    };
+  }
+
+  async buscarPerfil(perfil: Usuario) {
+    const { email } = perfil;
+    return await this.usuarioService.buscarPorEmail(email);
   }
 
   findAll() {

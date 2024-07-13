@@ -19,14 +19,6 @@ const routes = [
     },
   },
   {
-    path: "/register",
-    name: "register",
-    component: () => import("../views/auth/register/index.vue"),
-    meta: {
-      requireAuth: false,
-    },
-  },
-  {
     path: "/usuarios",
     name: "usuarios",
     component: () => import("../views/usuarios/index.vue"),

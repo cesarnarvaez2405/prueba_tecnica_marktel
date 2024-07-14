@@ -35,7 +35,7 @@ export class RegisterDto implements ICrearUsuarioDto {
   readonly nombre: string;
 
   @IsString()
-  @IsIn(['admin', 'user', 'support'], {
+  @IsIn(['admin'], {
     message: 'Role must be either admin, user, or support',
   })
   @IsNotEmpty({ message: 'El rol es obligatorio' })

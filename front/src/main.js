@@ -1,18 +1,17 @@
 import { createApp } from "vue";
-
-import router from "./router/index";
-import "./style.css";
-import App from "./App.vue";
-
-// Importar vee-validate y configuración de reglas
 import { configure } from "vee-validate";
 import { localize } from "@vee-validate/i18n";
 import es from "@vee-validate/i18n/dist/locale/es.json";
+import { createPinia } from "pinia";
 
-// Importar las reglas definidas
+import router from "./router/index";
+import App from "./App.vue";
+
+import "./style.css";
 import "./utils/rulesVeeValidation";
 
 const app = createApp(App);
+const pinia = createPinia();
 
 configure({
   generateMessage: localize({
@@ -22,4 +21,6 @@ configure({
 });
 
 app.use(router);
+app.use(pinia);
+
 app.mount("#app");

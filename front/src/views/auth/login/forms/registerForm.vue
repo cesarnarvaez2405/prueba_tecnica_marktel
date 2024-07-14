@@ -1,75 +1,159 @@
 <template>
-  <form class="flex flex-col">
-    <div class="flex space-x-4 mb-4">
-      <input
-        placeholder="First Name"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-1/2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+  <Form
+    v-slot="{ errors }"
+    class="flex flex-col gap-2"
+    @submit="registrarUsuario"
+  >
+    <div class="flex flex-col">
+      <Field
+        name="nombre"
+        placeholder="Nombre Completo"
+        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-1 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+        :class="{
+          ' border-red-700 border-2': errors.nombre,
+        }"
         type="text"
+        rules="required"
+        v-model="usuario.nombre"
       />
-      <input
-        placeholder="Last Name"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 w-1/2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-        type="text"
-      />
+      <error-alert :name="'nombre'" />
     </div>
-    <input
-      placeholder="Email"
-      class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-      type="email"
-    />
-    <input
-      placeholder="Confirm Email"
-      class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-      type="email"
-    />
-    <input
-      placeholder="Password"
-      class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-      type="password"
-    />
-    <input
-      placeholder="Confirm Password"
-      class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-      type="password"
-    />
-    <label class="text-sm mb-2 text-gray-200 cursor-pointer" for="gender">
-      Gender
-    </label>
-    <select
-      class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-      id="gender"
-    >
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-    <label class="text-sm mb-2 text-gray-200 cursor-pointer" for="age">
-      Age
-    </label>
-    <input
-      class="bg-gray-700 text-gray-200 border-0 rounded-md p-2"
-      id="age"
-      type="date"
-    />
-    <p class="text-white mt-4">
-      Ya tienes una cuenta?
-      <a
-        class="text-sm text-blue-500 -200 hover:underline cursor-pointer"
-        @click="$emit('cambiar-formulario')"
-        >Iniciar Seccion</a
+
+    <div class="flex flex-col">
+      <Field
+        name="username"
+        placeholder="Username"
+        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-1 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+        :class="{
+          ' border-red-700 border-2': errors.username,
+        }"
+        type="text"
+        rules="required"
+        v-model="usuario.username"
+      />
+      <error-alert :name="'username'" />
+    </div>
+
+    <div class="flex flex-col">
+      <Field
+        name="email"
+        placeholder="email"
+        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-1 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+        :class="{
+          ' border-red-700 border-2': errors.email,
+        }"
+        type="text"
+        rules="required"
+        v-model="usuario.email"
+      />
+      <error-alert :name="'email'" />
+    </div>
+
+    <div class="flex flex-row space-x-2">
+      <div class="flex-1">
+        <Field
+          name="password"
+          placeholder="Contraseña"
+          class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+          :class="{
+            'border-red-700 border-2': errors.password,
+          }"
+          type="password"
+          rules="required|max-8"
+          v-model="usuario.password"
+        />
+        <error-alert name="password" />
+      </div>
+
+      <div class="flex-1">
+        <Field
+          name="secondPassword"
+          placeholder="Confirmación de Contraseña"
+          class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+          :class="{
+            'border-red-700 border-2': errors.secondPassword,
+          }"
+          type="password"
+          rules="required|max-8"
+          v-model="usuario.confirmacionPassword"
+        />
+        <error-alert name="secondPassword" />
+      </div>
+    </div>
+
+    <div v-if="!coincidePassword && !errors.secondPassword && !errors.password">
+      <span class="text-red-500 font-semibold text-sm">
+        Las contraseñas no coinciden
+      </span>
+    </div>
+
+    <div>
+      <p class="text-white">
+        Ya tienes una cuenta?
+        <a
+          class="text-sm text-blue-500 -200 hover:underline cursor-pointer"
+          @click="emit('cambiar-formulario')"
+          >Iniciar Sección</a
+        >
+      </p>
+      <button
+        class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+        :class="{
+          ' opacity-45 ':
+            !coincidePassword && !errors.secondPassword && !errors.password,
+        }"
+        type="submit"
+        :disabled="
+          !coincidePassword && !errors.secondPassword && !errors.password
+        "
       >
-    </p>
-    <button
-      class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
-      type="submit"
-    >
-      Sign Up
-    </button>
-  </form>
+        Registrarse
+      </button>
+    </div>
+  </Form>
 </template>
 
 <script setup>
-defineEmits(["cambiar-formulario"]);
+import { computed, reactive } from "vue";
+import { ErrorMessage, Field, Form } from "vee-validate";
+
+import errorAlert from "../../../../components/errorAlert.vue";
+import authService from "../../../../services/authService";
+
+const emit = defineEmits(["cambiar-formulario"]);
+
+const usuario = reactive({
+  nombre: null,
+  username: null,
+  email: null,
+  password: null,
+  confirmacionPassword: null,
+  rol: "admin",
+});
+
+const coincidePassword = computed(() => {
+  return usuario.password === usuario.confirmacionPassword;
+});
+
+const registrarUsuario = async () => {
+  const usuarioACrear = {
+    nombre: usuario.nombre,
+    username: usuario.username,
+    email: usuario.email,
+    password: usuario.password,
+    rol: usuario.rol,
+  };
+  await authService.registrarUsuario(usuarioACrear);
+  emit("cambiar-formulario");
+  limpiarFormulario();
+};
+
+const limpiarFormulario = () => {
+  usuario.nombre = null;
+  usuario.username = null;
+  usuario.password = null;
+  usuario.email = null;
+};
 </script>
 
 <style>

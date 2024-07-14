@@ -1,5 +1,5 @@
 <template>
-  <Form v-slot="{ errors }" class="flex flex-col gap-2">
+  <Form @submit="logearse" v-slot="{ errors }" class="flex flex-col gap-2">
     <div class="flex flex-col">
       <Field
         name="username"
@@ -8,8 +8,9 @@
         :class="{
           ' border-red-700 border-2': errors.username,
         }"
-        type="username"
+        type="text"
         rules="required"
+        v-model="usuario.username"
       />
       <error-alert :name="'username'" />
     </div>
@@ -23,6 +24,7 @@
         }"
         type="password"
         rules="required|max-8"
+        v-model="usuario.password"
       />
       <error-alert :name="'password'" />
     </div>
@@ -39,16 +41,33 @@
       class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
       type="submit"
     >
-      Sign Up
+      Ingresar
     </button>
   </Form>
 </template>
 
 <script setup>
+import { reactive } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
+
 import errorAlert from "../../../../components/errorAlert.vue";
+import { useAuthStore } from "../../../../store/auth";
+import router from "../../../../router/index";
 
 defineEmits(["cambiar-formulario"]);
+
+const store = useAuthStore();
+const usuario = reactive({
+  username: null,
+  password: null,
+});
+
+const logearse = async () => {
+  const usuarioLogueado = await store.login(usuario);
+  if (usuarioLogueado) {
+    router.push({ name: "home" });
+  }
+};
 </script>
 
 <style>

@@ -10,7 +10,6 @@ export const useAuthStore = defineStore("useAuth", {
 
   actions: {
     async login(user) {
-      console.log(user);
       const response = await authService.login(user);
       localStorage.setItem("token", response.token);
       this.estado = "inLogin";

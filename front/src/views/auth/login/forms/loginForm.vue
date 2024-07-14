@@ -67,6 +67,12 @@ const logearse = async () => {
   if (usuarioLogueado) {
     router.push({ name: "home" });
   }
+  limpiar();
+};
+
+const limpiar = () => {
+  usuario.username = null;
+  usuario.password = null;
 };
 </script>
 

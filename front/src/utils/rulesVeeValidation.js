@@ -18,8 +18,8 @@ defineRule("email", (value) => {
 });
 
 defineRule("max-8", (value) => {
-  if (value.length > 8) {
-    return "El campo debe ser menor a 8 caracteres";
+  if (value.length < 8) {
+    return "El campo debe ser mayor a 8 caracteres";
   }
   return true;
 });

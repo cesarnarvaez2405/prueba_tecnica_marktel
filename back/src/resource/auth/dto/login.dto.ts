@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class LoginDto {
   @IsNotEmpty({ message: 'El usarname debe ser obligatorio' })
@@ -7,6 +7,7 @@ export class LoginDto {
 
   @IsString()
   @Transform(({ value }) => value.trim())
+  @MinLength(8, { message: 'El password como minimo 8 caracteres' })
   @IsNotEmpty({ message: 'El password es obligatorio' })
   password: string;
 }

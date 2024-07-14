@@ -5,7 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  MaxLength,
+  MinLength,
 } from 'class-validator';
 import { Usuario } from 'src/resource/usuarios/entities/usuario.entity';
 
@@ -26,7 +26,7 @@ export class RegisterDto implements ICrearUsuarioDto {
   readonly email: string;
 
   @IsString()
-  @MaxLength(8, { message: 'El password solo puede tener hasta 8 caracteres' })
+  @MinLength(8, { message: 'El password como minimo 8 caracteres' })
   @IsNotEmpty({ message: 'El password es obligatorio' })
   password: string;
 

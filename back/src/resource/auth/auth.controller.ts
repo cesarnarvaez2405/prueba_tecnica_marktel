@@ -10,7 +10,6 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Auth } from './decorators/auth.decorators';
-import { Role } from 'src/common/enums/rol.enum';
 import { UsuarioActivo } from 'src/common/decorators/usuarioActivo.decorators';
 import { UsuarioActivoInterface } from 'src/common/interface/usuarioActivo.interface';
 

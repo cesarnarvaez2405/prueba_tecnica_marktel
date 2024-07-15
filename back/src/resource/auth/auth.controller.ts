@@ -4,6 +4,8 @@ import {
   Post,
   Body,
   InternalServerErrorException,
+  Patch,
+  Param,
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -12,6 +14,8 @@ import { LoginDto } from './dto/login.dto';
 import { Auth } from './decorators/auth.decorators';
 import { UsuarioActivo } from 'src/common/decorators/usuarioActivo.decorators';
 import { UsuarioActivoInterface } from 'src/common/interface/usuarioActivo.interface';
+import { Role } from 'src/common/enums/rol.enum';
+import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -33,6 +37,12 @@ export class AuthController {
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
+  }
+
+  @Auth(Role.Admin)
+  @Patch(':id')
+  actualizar(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
+    return this.authService.actualizarPassword(+id, updateAuthDto);
   }
 
   @Get('perfil')

@@ -53,4 +53,13 @@ export default {
       alertErrorResponse(error);
     }
   },
+
+  async buscarPorId(usuarioId) {
+    try {
+      const response = await axios.get(`${dominio}/${usuarioId}`, configApi);
+      return response.data;
+    } catch (error) {
+      alertErrorResponse(error);
+    }
+  },
 };

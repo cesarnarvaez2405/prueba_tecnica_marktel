@@ -19,7 +19,7 @@
           <div class="flex justify-center items-center gap-2">
             <div>
               <pencil-square-icon
-                @click="abrirModalUsuario()"
+                @click="abrirModalUsuario(item.id)"
                 class="size-5 text-yellow-600 cursor-pointer hover:text-blue-800 transition-all ease-in-out duration-150"
               />
             </div>
@@ -47,7 +47,10 @@
           </div>
         </template>
       </Table>
-      <modal-usuario ref="modalUsuarioRef" />
+      <modal-usuario
+        ref="modalUsuarioRef"
+        @obtener-usuarios="obtenerUsuarios"
+      />
     </template>
   </usuarios-layout>
 </template>
@@ -153,8 +156,8 @@ const eliminarUsuario = (item) => {
   });
 };
 
-const abrirModalUsuario = () => {
-  modalUsuarioRef.value.abrirModal();
+const abrirModalUsuario = (itemId) => {
+  modalUsuarioRef.value.abrirModal(itemId);
 };
 </script>
 

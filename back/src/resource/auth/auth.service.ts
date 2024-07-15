@@ -10,6 +10,7 @@ import { UsuariosService } from '../usuarios/usuarios.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Usuario } from '../usuarios/entities/usuario.entity';
+import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +27,12 @@ export class AuthService {
     }
     registerDto.password = await bcrypt.hash(registerDto.password, 10);
     return await this.usuarioService.crear(registerDto);
+  }
+
+  async actualizarPassword(id: number, datosDto: UpdateAuthDto) {
+    await this.usuarioService.buscarPorId(id);
+    datosDto.password = await bcrypt.hash(datosDto.password, 10);
+    return await this.usuarioService.actualizar(id, datosDto);
   }
 
   async login(loginDto: LoginDto) {

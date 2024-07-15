@@ -44,6 +44,19 @@ export default {
     }
   },
 
+  async actualizarPassword(datos, usuarioId) {
+    try {
+      const response = await axios.patch(
+        `${dominio}/${usuarioId}`,
+        datos,
+        configApi
+      );
+      return response.data;
+    } catch (error) {
+      alertErrorResponse(error);
+    }
+  },
+
   async buscarUsuarioLogueado() {
     try {
       const response = await axios.get(`${dominio}/perfil`, configApi);

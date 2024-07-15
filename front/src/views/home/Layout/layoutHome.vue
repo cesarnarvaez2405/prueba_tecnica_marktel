@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center h-screen w-screen bg-blue-100">
     <div
-      class="absolute top-4 right-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-all ease-in-out duration-150"
+      class="absolute top-4 right-4 bg-blue-950 text-white py-2 px-4 rounded hover:bg-blue-700 transition-all ease-in-out duration-150"
     >
       <slot name="boton"></slot>
     </div>

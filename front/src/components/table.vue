@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col rounded-lg">
     <div class="overflow-x-auto">
       <div class="inline-block min-w-full">
         <div class="overflow-x-auto">
@@ -10,7 +10,7 @@
                   v-for="(header, index) in headers"
                   :key="index"
                   scope="col"
-                  class="font-semibold bg-secondary uppercase text-primary px-2 py-1 border"
+                  class="font-semibold text-white bg-secondary uppercase text-primary px-2 py-1 border"
                 >
                   {{ header.text }}
                 </th>

@@ -43,4 +43,13 @@ export default {
       alertErrorResponse(error);
     }
   },
+
+  async buscarUsuarioLogueado() {
+    try {
+      const response = await axios.get(`${dominio}/perfil`, configApi);
+      return response.data;
+    } catch (error) {
+      alertErrorResponse(error);
+    }
+  },
 };

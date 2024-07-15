@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h2>usuarios</h2>
+    <h2>Usuarios</h2>
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
 </script>
 
 <style>

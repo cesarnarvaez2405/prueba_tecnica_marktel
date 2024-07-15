@@ -1,6 +1,7 @@
 import {
   IsBoolean,
   IsEmail,
+  IsIn,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -34,6 +35,9 @@ export class CreateUsuarioDto implements ICrearUsuarioDto {
   readonly nombre: string;
 
   @IsString()
+  @IsIn(['admin', 'user'], {
+    message: 'Solamente se permite el rol de admin o user',
+  })
   @IsNotEmpty({ message: 'El rol es obligatorio' })
   readonly rol: string;
 

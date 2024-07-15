@@ -37,7 +37,7 @@ export class AuthController {
   }
 
   @Get('perfil')
-  @Auth(Role.Admin)
+  @Auth()
   perfil(@UsuarioActivo() usuario: UsuarioActivoInterface) {
     try {
       return this.authService.buscarPerfil(usuario);

@@ -69,11 +69,11 @@ const estaCargando = ref(false);
 const logearse = async () => {
   estaCargando.value = true;
   const usuarioLogueado = await store.login(usuario);
-  if (usuarioLogueado) {
-    router.push({ name: "home" });
+  if (!usuarioLogueado) {
+    limpiar();
   }
+  router.push({ name: "home" });
   estaCargando.value = false;
-  limpiar();
 };
 
 const limpiar = () => {

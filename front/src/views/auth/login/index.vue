@@ -6,6 +6,9 @@
           Iniciar sección
         </h2>
         <h2 class="text-2xl font-bold text-gray-200" v-else>Registrar</h2>
+        <h4 class="text-sm font-bold text-gray-200">
+          Prueba técnica - Marktel
+        </h4>
       </template>
 
       <template v-slot:formulario>

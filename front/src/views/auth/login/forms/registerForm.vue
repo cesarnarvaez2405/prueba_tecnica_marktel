@@ -25,7 +25,7 @@
     <div class="flex flex-col">
       <Field
         name="username"
-        placeholder="Username"
+        placeholder="Usuario"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-1 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
         :class="{
           ' border-red-700 border-2': errors.username,
@@ -77,7 +77,7 @@
         value="true"
         @change="verificarPassword()"
       />
-      <p class="text-white font-semibold">Editar el password?</p>
+      <p class="text-white font-semibold">¿Editar contraseña?</p>
     </div>
 
     <div v-if="editarPassword || !props.estaEditando">
@@ -100,7 +100,7 @@
         <div class="flex-1">
           <Field
             name="secondPassword"
-            placeholder="Confirmación de Contraseña"
+            placeholder="Confirmación de contraseña"
             class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
             :class="{
               'border-red-700 border-2': errors.secondPassword,
@@ -126,7 +126,7 @@
         <a
           class="text-sm text-blue-500 -200 hover:underline cursor-pointer"
           @click="emit('cambiar-formulario')"
-          >Iniciar Sección</a
+          >Iniciar Sesión</a
         >
       </p>
       <button

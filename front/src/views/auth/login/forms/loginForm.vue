@@ -34,7 +34,7 @@
         class="text-sm text-blue-500 -200 hover:underline cursor-pointer"
         @click="$emit('cambiar-formulario')"
       >
-        ¿No tienes cuenta? Regrístrate
+        ¿No tienes cuenta? Regístrate
       </a>
     </p>
     <button

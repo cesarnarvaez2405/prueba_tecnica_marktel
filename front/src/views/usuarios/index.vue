@@ -96,7 +96,7 @@ const headerUsuarios = ref([
     value: "nombre",
   },
   {
-    text: "Username",
+    text: "Usuario",
     value: "username",
   },
   {

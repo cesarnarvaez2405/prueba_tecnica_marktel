@@ -3,7 +3,7 @@
     <form-layout>
       <template v-slot:titulo>
         <h2 class="text-2xl font-bold text-gray-200" v-if="!estaRegistrando">
-          Iniciar sección
+          Iniciar sesión
         </h2>
         <h2 class="text-2xl font-bold text-gray-200" v-else>Registrar</h2>
         <h4 class="text-sm font-bold text-gray-200">

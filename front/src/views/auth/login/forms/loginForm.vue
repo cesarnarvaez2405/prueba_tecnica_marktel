@@ -3,7 +3,7 @@
     <div class="flex flex-col">
       <Field
         name="username"
-        placeholder="Username"
+        placeholder="Usuario"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-1 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
         :class="{
           ' border-red-700 border-2': errors.username,

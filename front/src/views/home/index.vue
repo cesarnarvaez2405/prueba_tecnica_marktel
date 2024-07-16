@@ -8,7 +8,7 @@
     </template>
 
     <template v-slot:tarjeta>
-      <div
+      <button
         class="flex flex-col text-white gap-8 justify-center items-center h-1/2 w-full border rounded-lg bg-gray-800 hover:shadow-xl hover:scale-95 transition-all ease-in-out duration-150 cursor-pointer"
         :class="{
           'opacity-55': rol !== 'admin',
@@ -19,7 +19,7 @@
         <h2 class="font-bold text-3xl">Gestion de usuarios</h2>
         <IdentificationIcon class="size-14" />
         <p v-if="rol !== 'admin'">No tienes permiso para ingresar</p>
-      </div>
+      </button>
     </template>
   </layout-home>
 </template>

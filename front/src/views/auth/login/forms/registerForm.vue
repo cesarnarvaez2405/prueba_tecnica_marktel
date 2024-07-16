@@ -49,6 +49,23 @@
       <error-alert :name="'email'" />
     </div>
 
+    <div class="flex flex-col">
+      <Field
+        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-1 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+        name="rol"
+        as="select"
+        v-model="usuario.rol"
+        :class="{
+          ' border-red-700 border-2': errors.rol,
+        }"
+      >
+        <option selected disabled>Seleccione un rol</option>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </Field>
+      <error-alert :name="'rol'" />
+    </div>
+
     <div v-if="props.estaEditando" class="flex gap-2">
       <Field
         name="editar"

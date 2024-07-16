@@ -30,12 +30,12 @@
     </div>
 
     <p class="text-white">
-      Quieres registrarse?
       <a
         class="text-sm text-blue-500 -200 hover:underline cursor-pointer"
         @click="$emit('cambiar-formulario')"
-        >Aquí</a
       >
+        ¿No tienes cuenta? Regrístrate
+      </a>
     </p>
     <button
       class="flex justify-center items-center bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"

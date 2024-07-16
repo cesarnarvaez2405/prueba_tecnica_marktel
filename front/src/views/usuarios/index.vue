@@ -12,7 +12,7 @@
     </template>
 
     <template v-slot:titulo>
-      <h1 class="text-4xl font-bold">Gestion de usuarios</h1>
+      <h1 class="text-4xl font-bold">Gestión de usuarios</h1>
     </template>
 
     <template v-slot:table>
@@ -131,9 +131,9 @@ const obtenerUsuarios = async () => {
 const cambiarEstado = (estado, item) => {
   Swal.fire({
     title: `¡Advertencia!`,
-    text: `Estas seguro de ${item.estaActivo ? "Inactivar" : "Activar"} a ${
+    text: `¿Estás seguro de ${item.estaActivo ? "inactivar" : "activar"} a ${
       item.username
-    } ?`,
+    }?`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#06B357",
@@ -157,7 +157,7 @@ const cambiarEstado = (estado, item) => {
 const eliminarUsuario = (item) => {
   Swal.fire({
     title: `¡Advertencia!`,
-    text: `Estas seguro de Eliminar a ${item.username} ?`,
+    text: `¿Estás seguro de eliminar a ${item.username}?`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#06B357",

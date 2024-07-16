@@ -16,7 +16,7 @@
         :disabled="rol !== 'admin'"
         @click="ingresarSubUsuarios()"
       >
-        <h2 class="font-bold text-3xl">Gestion de usuarios</h2>
+        <h2 class="font-bold text-3xl">Gestión de usuarios</h2>
         <IdentificationIcon class="size-14" />
         <p v-if="rol !== 'admin'">No tienes permiso para ingresar</p>
       </button>

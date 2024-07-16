@@ -38,21 +38,24 @@
       >
     </p>
     <button
-      class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+      class="flex justify-center items-center bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
       type="submit"
+      :disabled="estaCargando"
     >
-      Ingresar
+      <p v-if="!estaCargando">Ingresar</p>
+      <spinner-loading v-else />
     </button>
   </Form>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 
 import errorAlert from "../../../../components/errorAlert.vue";
 import { useAuthStore } from "../../../../store/auth";
 import router from "../../../../router/index";
+import spinnerLoading from "../../../../components/spinnerLoading.vue";
 
 defineEmits(["cambiar-formulario"]);
 
@@ -61,12 +64,15 @@ const usuario = reactive({
   username: null,
   password: null,
 });
+const estaCargando = ref(false);
 
 const logearse = async () => {
+  estaCargando.value = true;
   const usuarioLogueado = await store.login(usuario);
   if (usuarioLogueado) {
     router.push({ name: "home" });
   }
+  estaCargando.value = false;
   limpiar();
 };
 

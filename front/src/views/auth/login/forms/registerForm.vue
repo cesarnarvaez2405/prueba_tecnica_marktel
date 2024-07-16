@@ -1,5 +1,8 @@
 <template>
+  <skeleton v-if="estaEditando && usuario.username == null" />
+
   <Form
+    v-else
     v-slot="{ errors }"
     class="flex flex-col gap-2"
     @submit="props.estaEditando ? editarUsuario() : registrarUsuario()"
@@ -134,10 +137,14 @@
         }"
         type="submit"
         :disabled="
-          !coincidePassword && !errors.secondPassword && !errors.password
+          (!coincidePassword && !errors.secondPassword && !errors.password) ||
+          estaCargando
         "
       >
-        {{ props.estaEditando ? "Editar Usuario" : "Registrar" }}
+        <p v-if="!estaCargando">
+          {{ props.estaEditando ? "Editar Usuario" : "Registrar" }}
+        </p>
+        <spinner-loading v-else />
       </button>
     </div>
   </Form>
@@ -150,6 +157,8 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 import errorAlert from "../../../../components/errorAlert.vue";
 import authService from "../../../../services/authService";
 import usuariosService from "../../../../services/usuariosService";
+import spinnerLoading from "../../../../components/spinnerLoading.vue";
+import skeleton from "../../../../components/skeleton.vue";
 
 const emit = defineEmits(["cambiar-formulario", "cerrar-modal"]);
 const props = defineProps({
@@ -166,6 +175,7 @@ const usuario = reactive({
   rol: "admin",
 });
 const editarPassword = ref(false);
+const estaCargando = ref(false);
 
 onMounted(async () => {
   if (props.estaEditando) {
@@ -182,6 +192,7 @@ const coincidePassword = computed(() => {
 });
 
 const registrarUsuario = async () => {
+  estaCargando.value = true;
   const usuarioACrear = {
     nombre: usuario.nombre,
     username: usuario.username,
@@ -190,11 +201,13 @@ const registrarUsuario = async () => {
     rol: usuario.rol,
   };
   await authService.registrarUsuario(usuarioACrear);
+  estaCargando.value = false;
   emit("cambiar-formulario");
   limpiarFormulario();
 };
 
 const editarUsuario = async () => {
+  estaCargando.value = true;
   const usuarioActualizar = {
     nombre: usuario.nombre,
     username: usuario.username,
@@ -209,6 +222,7 @@ const editarUsuario = async () => {
     };
     await authService.actualizarPassword(datosPassword, props.usuarioId);
   }
+  estaCargando.value = false;
   emit("cerrar-modal");
   limpiarFormulario();
 };
